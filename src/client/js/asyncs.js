@@ -10,6 +10,7 @@ async function postData(url='',data=''){
   })
   try{
     const response = await send.json();
+    return response;
     console.log(response);
   }catch(error){
     console.log("error",error);

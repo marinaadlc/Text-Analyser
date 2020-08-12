@@ -1,5 +1,6 @@
 var path = require('path')
 const express = require('express')
+const fetch = require('node-fetch')
 
 const app = express()
 
@@ -31,10 +32,35 @@ app.listen(3000, function () {
 })
 
 textInput = {};
+let urlOk= '';
 
-app.post('/addText', addText);
-function addText(req,res){
+app.post('/addText', analyseText);
+async function analyseText(req,res){
+  const t = await addText(req,res);
+  const l = await getLang(urlOk);
+  res.send(textInput);
+}
+
+async function addText(req,res){
   const text = req.body;
   textInput["text"]=text.formText;
-  res.send({response:'done'});
+  console.log(textInput.text);
+  urlOk = initUrl+'&txt="'+textInput.text+'"';
+  console.log(urlOk);
+}
+
+//API credentials
+const initUrl = 'https://api.meaningcloud.com/lang-2.0?key='+process.env.API_key;
+
+// API FUNCTION
+async function getLang(url=''){
+  const response = await fetch(url);
+  try{
+    const data = await response.json();
+    console.log(data);
+    textInput["lang"]=data.language_list[0].language;
+    console.log(textInput.lang)
+  }catch(error){
+    console.log("error",error);
+  }
 }
