@@ -58,7 +58,7 @@ async function getLang(url=''){
   try{
     const data = await response.json();
     console.log(data);
-    textInput["lang"]=data.language_list[0].language;
+    textInput["lang"]=data.language_list[0].name;
     console.log(textInput.lang)
   }catch(error){
     console.log("error",error);
