@@ -9,7 +9,7 @@ function checkInput (event){
 }
 
 async function checkLang(text){
-  let formText = text;
+  let formText = {formText:text};
   const sendText = await Client.postData("/addText", formText);
   console.log("your text is" +sendText.lang);
   document.getElementById('results').innerHTML = ('Your text: '+ sendText.text + '<br>The language: '+ sendText.lang);
