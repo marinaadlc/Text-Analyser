@@ -1,8 +1,7 @@
 function checkInput (event){
   event.preventDefault();
   let formText = document.getElementById('textInput').value;
-  var regexExp = !/[^a-zA-Z]/;
-  if (formText.length == 0 || regexExp.test(formText)){
+  if (formText.length == 0){
     alert("Invalid input");
   } else{
     checkLang(formText);
